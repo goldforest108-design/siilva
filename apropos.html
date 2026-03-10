@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SILVA | Our Heritage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C5A059;
+            --dark-green: #1B3022;
+            --cream: #F9F7F2;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--cream); color: #2D2D2D; overflow-x: hidden; }
+
+        /* --- NAVIGATION AVEC BURGER --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: var(--dark-green); position: sticky; top: 0; z-index: 2000;
+            border-bottom: 1px solid var(--gold);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--gold); text-decoration: none; }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--white); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+        /* Icone Burger */
+        .burger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .burger span { width: 25px; height: 3px; background: var(--gold); border-radius: 2px; }
+
+        /* --- HERO SECTION --- */
+        .hero-about {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000') center/cover no-repeat;
+            display: flex; flex-direction: column; justify-content: center; padding-left: 10%;
+            color: white; position: relative;
+        }
+        .hero-about h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; }
+        .hero-about p { font-size: 1.2rem; font-weight: 300; font-style: italic; opacity: 0.9; }
+
+        /* --- SECTION NOTRE HÉRITAGE + SPÉCIALISTE --- */
+        .heritage-section {
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1200px; margin: -80px auto 60px; padding: 40px;
+            background: var(--cream); position: relative; z-index: 10; border-radius: 8px;
+        }
+        .heritage-text { flex: 1; padding-right: 50px; }
+        .heritage-text h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--dark-green); }
+        .heritage-text p { line-height: 1.8; color: #555; font-size: 1rem; margin-bottom: 20px; }
+
+        .specialist-frame {
+            flex: 0 0 400px; border: 12px solid var(--gold);
+            padding: 8px; background: white; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        .specialist-frame img { width: 100%; height: 450px; object-fit: cover; display: block; }
+        .specialist-caption { margin-top: 15px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; color: var(--dark-green); letter-spacing: 1px; }
+
+        /* --- SECTION PILIERS --- */
+        .pillars {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 20px; max-width: 1200px; margin: 40px auto; padding: 0 20px;
+        }
+        .pillar-card {
+            background: var(--dark-green); color: white; padding: 40px;
+            text-align: center; border-radius: 8px; border-bottom: 4px solid var(--gold);
+        }
+        .pillar-card h3 { color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 15px; }
+        .pillar-card p { font-size: 0.9rem; opacity: 0.8; line-height: 1.6; }
+
+        /* --- ENGAGEMENT --- */
+        .engagement {
+            background: var(--dark-green); color: white; padding: 80px 5%;
+            text-align: center; margin-top: 80px;
+        }
+        .engagement h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
+        .engagement-content { max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.1rem; opacity: 0.9; }
+
+        /* --- FOOTER --- */
+        footer { background: #132218; color: var(--white); padding: 60px 5% 20px; border-top: 1px solid var(--gold); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; opacity: 0.5; }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 900px) {
+            .burger { display: flex; }
+            .nav-links {
+                position: fixed; top: 68px; right: -100%; width: 100%; height: calc(100vh - 68px);
+                background: var(--dark-green); flex-direction: column; align-items: center;
+                padding-top: 50px; transition: 0.4s ease; z-index: 1999;
+            }
+            .nav-links.active { right: 0; }
+            .heritage-section { flex-direction: column; margin-top: 0; padding: 30px 20px; }
+            .heritage-text { padding-right: 0; text-align: center; }
+            .specialist-frame { flex: 1; width: 100%; max-width: 350px; margin-top: 30px; border-width: 8px; }
+            .specialist-frame img { height: 350px; }
+            .pillars { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">SILVA</a>
+        <div class="burger" id="burger-menu">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-links" id="nav-list">
+            <a href="index.html">Home</a>
+            <a href="catalogue.html">Catalogue</a>
+            <a href="apropos.html" class="active">About Us</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero-about">
+        <h1>The Origin of Rarity</h1>
+        <p>A quest for excellence in the heart of the wild Africa.</p>
+    </header>
+
+    <main>
+        <section class="heritage-section">
+            <div class="heritage-text">
+                <h2>Our Heritage</h2>
+                <p>For decades, SILVA has been dedicated to preserving and sharing the most precious secrets of African nature. Our story is one of passion for purity and deep respect for the cycles of the earth.</p>
+                <p>We collaborate with experts to ensure that every product leaving our hands is a treasure of authenticity.</p>
+            </div>
+            
+            <div class="specialist-frame">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop" alt="SILVA Botanical Specialist">
+                <div class="specialist-caption">Botanical Authentication Expert</div>
+            </div>
+        </section>
+
+        <section class="pillars">
+            <div class="pillar-card">
+                <h3>Ethical Sourcing</h3>
+                <p>We work directly with the guardians of the forest to ensure a responsible harvest.</p>
+            </div>
+            <div class="pillar-card">
+                <h3>Absolute Purity</h3>
+                <p>No additives. Just the raw power of nature certified by our laboratories.</p>
+            </div>
+            <div class="pillar-card">
+                <h3>Natural Mystery</h3>
+                <p>Rare essences drawn from the most unexplored areas of the continent.</p>
+            </div>
+        </section>
+
+        <section class="engagement">
+            <h2>Our Commitment</h2>
+            <div class="engagement-content">
+                "Nature is not a product, it is a heritage. At SILVA, we work every day to ensure this heritage lives on through generations."
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4 style="color: var(--gold);">SILVA</h4>
+                <p style="font-size: 13px; opacity: 0.8;">Natural Excellence.</p>
+            </div>
+            <div>
+                <h4 style="color: var(--gold);">Navigation</h4>
+                <p style="font-size: 13px;"><a href="index.html" style="color:white; text-decoration:none;">Home</a><br><a href="catalogue.html" style="color:white; text-decoration:none;">Shop</a></p>
+            </div>
+            <div>
+                <h4 style="color: var(--gold);">Contact</h4>
+                <p style="font-size: 13px; opacity: 0.8;">WhatsApp: +628211663043</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 SILVA. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Burger Menu Management
+        const burger = document.getElementById('burger-menu');
+        const navList = document.getElementById('nav-list');
+
+        burger.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            
+            // Simple burger animation (optional)
+            burger.style.opacity = navList.classList.contains('active') ? "0.6" : "1";
+        });
+
+        // Close menu if a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+    </script>
+<div class="language-picker-container">
+    <button class="lang-button" id="langBtn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+        </svg>
+        <span id="currentLangName">Language</span>
+    </button>
+    
+    <div class="lang-dropdown" id="langDropdown">
+        <div class="lang-grid">
+            <a href="javascript:void(0);" onclick="changeLanguage('en')" class="lang-item">English</a>
+            <a href="javascript:void(0);" onclick="changeLanguage('id')" class="lang-item">Indonesian</a>
+            <a href="javascript:void(0);" onclick="changeLanguage('zh-CN')" class="lang-item">Chinese</a>
+            <a href="javascript:void(0);" onclick="changeLanguage('ms')" class="lang-item">Malay</a>
+            <a href="javascript:void(0);" onclick="changeLanguage('th')" class="lang-item">Thai</a>
+            <a href="javascript:void(0);" onclick="changeLanguage('vi')" class="lang-item">Vietnamese</a>
+            <a href="javascript:void(0);" onclick="changeLanguage('ko')" class="lang-item">Korean</a>
+            <a href="javascript:void(0);" onclick="changeLanguage('ja')" class="lang-item">Japanese</a>
+        </div>
+    </div>
+</div>
+
+<div id="google_translate_element" style="display:none;"></div>
+
+<style>
+    .language-picker-container {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        z-index: 9999;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .lang-button {
+        background: #1B3022; /* Ton dark-green */
+        color: #C5A059; /* Ton gold */
+        border: 2px solid #C5A059;
+        padding: 12px 22px;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        transition: all 0.4s ease;
+    }
+
+    .lang-button:hover {
+        background: #C5A059;
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(197, 160, 89, 0.4);
+    }
+
+    .lang-dropdown {
+        position: absolute;
+        bottom: 80px;
+        left: 0;
+        background: white;
+        border-radius: 12px;
+        width: 180px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        overflow: hidden;
+    }
+
+    .lang-dropdown.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .lang-item {
+        display: block;
+        padding: 14px 20px;
+        color: #1B3022;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.3s;
+        border-bottom: 1px solid #f8f8f8;
+    }
+
+    .lang-item:hover {
+        background: #F9F7F2;
+        color: #C5A059;
+        padding-left: 30px;
+    }
+
+    /* Supprime les éléments Google inutiles */
+    .goog-te-banner-frame, .goog-te-balloon-frame, .goog-tooltip { display: none !important; }
+    .goog-te-gadget { font-size: 0 !important; }
+    body { top: 0 !important; }
+</style>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en', // Ton site est en anglais
+            includedLanguages: 'en,id,zh-CN,ms,th,vi,ko,ja', // Les langues demandées
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    function changeLanguage(langCode) {
+        var select = document.querySelector('select.goog-te-combo');
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+            
+            // Met à jour le texte du bouton
+            const names = {'en':'English','id':'Indonesian','zh-CN':'Chinese','ms':'Malay','th':'Thai','vi':'Vietnamese','ko':'Korean','ja':'Japanese'};
+            document.getElementById('currentLangName').innerText = names[langCode];
+        }
+        document.getElementById('langDropdown').classList.remove('active');
+    }
+
+    // Toggle du menu
+    const btn = document.getElementById('langBtn');
+    const menu = document.getElementById('langDropdown');
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', () => menu.classList.remove('active'));
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></body>
+</html>
